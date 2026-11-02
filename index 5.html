@@ -1,0 +1,233 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>يومك تحت المجهر | المرحلة السابعة — مختبر القرارات والتحدي الذكي</title><style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');*{box-sizing:border-box}body{margin:0;background:#10152d;color:#fff;font-family:Cairo,Tahoma,sans-serif}.shell{max-width:1250px;margin:auto;padding:18px}header{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}h1{font-size:clamp(23px,3vw,38px);margin:0}.sub{color:#bfc9eb;font-size:13px}.tag{background:#29345d;padding:9px 15px;border-radius:30px;font-size:13px}.layout{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(290px,1fr);gap:18px;margin-top:16px}.scene{position:relative;background:linear-gradient(135deg,#3a4476,#1d2445);border-radius:24px;overflow:hidden;min-height:480px;border:1px solid #55628b}canvas{display:block;width:100%;height:480px;touch-action:pan-y}.scene-label{position:absolute;top:16px;right:16px;background:#101a38bb;border:1px solid #8192bc66;padding:8px 14px;border-radius:18px}.loading{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:#1b2545;z-index:4;text-align:center;padding:30px}.panel{background:#1c2547;border:1px solid #3a4975;border-radius:24px;padding:20px}.clock{font-size:36px;font-weight:800;color:#fdd58c}.stats{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:16px 0}.stat{background:#28335a;border-radius:14px;padding:10px}.stat .num{font-size:20px;font-weight:800}.stat small{color:#c1c9e0}.bar{height:7px;border-radius:10px;background:#111a37;overflow:hidden;margin-top:7px}.fill{height:100%;background:#79dfca;transition:width .5s}.story{line-height:1.9;font-size:15px;color:#f1f3ff}.choices{display:grid;gap:10px;margin-top:15px}button{font:700 14px Cairo,Tahoma,sans-serif;cursor:pointer;border:0;border-radius:13px;padding:13px 15px;text-align:right;transition:transform .2s,background .2s}button:hover{transform:translateY(-2px)}.choice{background:#ecebff;color:#242b50}.choice:hover{background:#fff}.restart{background:#ffcc7c;color:#34284c;text-align:center;margin-top:10px;width:100%}.note{font-size:12px;color:#c3cbe4;line-height:1.8}.outcome{background:#33436e;border-right:4px solid #fbd18b;border-radius:9px;padding:12px;line-height:1.8;margin-top:13px}.impact{background:#172d42;border:1px solid #69c8b2;border-radius:14px;padding:12px;margin:12px 0;line-height:1.8}.impact strong{color:#9ff1d8}.report{background:#26345a;border:1px solid #7386bc;border-radius:16px;padding:15px;line-height:1.9;margin-top:12px}.report h3{margin:0 0 8px;color:#ffdc97}.report p{margin:6px 0}.footer{text-align:center;color:#acb9db;font-size:12px;margin:18px}.error{color:#ffb4b4}@media(max-width:850px){.layout{grid-template-columns:1fr;gap:10px}.shell{padding:10px}.scene{min-height:390px}canvas{height:390px}.panel{padding:14px}.stats{gap:7px;margin:10px 0}.stat{padding:8px}.clock{font-size:30px}.scene-label{font-size:12px;top:9px;right:9px}.tag{font-size:11px}}
+
+/* Phase 7: comparison and measurable challenge */
+.compare-card{border:2px solid #8ddbc3}
+.compare-scroll{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.compare-table{width:100%;border-collapse:separate;border-spacing:0 5px;font-size:13px;table-layout:fixed}
+.compare-table th,.compare-table td{padding:9px 4px;text-align:center;background:#1a294b;overflow-wrap:anywhere}
+.compare-table thead th{background:#384a72;color:#fff;font-size:12px}
+.compare-table tbody th{color:#fff3d2}
+.compare-table .delta{direction:ltr;unicode-bidi:isolate;font-weight:800}
+.delta.good{color:#9cf1cd}.delta.bad{color:#ffc1c1}.delta.neutral{color:#e2e8f6}
+.challenge-card{background:linear-gradient(145deg,#233c60,#233353);border:2px solid #eac784;border-radius:16px;padding:15px;margin-top:12px;line-height:1.85}
+.challenge-card h3{margin:0 0 7px;color:#ffdf99}
+.challenge-metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+.challenge-metric{background:#152544;border-radius:12px;padding:10px;text-align:center}
+.challenge-metric b{font-size:19px;display:block}
+.challenge-status{background:#132d36;border-radius:12px;padding:10px;margin-top:10px}
+.action-button{display:block;width:100%;text-align:center;margin-top:10px;background:#f7cc84;color:#30294d}
+@media(max-width:380px){.compare-table{font-size:11px}.compare-table th,.compare-table td{padding:7px 2px}}
+</style></head><body><main class="shell"><header><div><h1>🔬 يومك تحت المجهر</h1><div class="sub">قرارات صغيرة... نتائج كبيرة | مختبر مقارنة اليومين والتحدي الذكي — المرحلة السابعة</div></div><span class="tag">متوسطة وثانوية عنيكر • يوم الابتكار</span></header><section class="layout"><div class="scene"><div class="scene-label" id="sceneLabel">🌤️ غرفة النوم — بداية اليوم</div><div class="loading" id="loading">جارٍ تجهيز المشهد ثلاثي الأبعاد...</div><div id="stage"></div></div><aside class="panel"><div class="sub">الوقت الافتراضي</div><div class="clock" id="clock">06:00</div><div class="stats"><div class="stat"><small>⚡ الطاقة</small><div class="num" id="energy">75</div><div class="bar"><div class="fill" id="energyBar" style="width:75%"></div></div></div><div class="stat"><small>🏆 الإنجاز</small><div class="num" id="progress">15</div><div class="bar"><div class="fill" id="progressBar" style="width:15%"></div></div></div><div class="stat"><small>🌿 الراحة</small><div class="num" id="rest">65</div><div class="bar"><div class="fill" id="restBar" style="width:65%"></div></div></div><div class="stat"><small>🧭 التوازن</small><div class="num" id="balance">—</div><div class="bar"><div class="fill" id="balanceBar" style="width:50%"></div></div></div></div><div class="story" id="story">استيقظتِ في السادسة صباحًا. أمامك بعض الوقت قبل المدرسة. كيف ستبدئين يومك؟</div><div class="choices" id="choices"></div><div id="outcome"></div><div id="impact" class="impact" hidden aria-live="polite"></div><div id="report"></div><button class="restart" id="restart">↻ إعادة التجربة</button><p class="note">هذه مؤشرات تعليمية افتراضية وليست قياسات صحية. المرحلة السابعة: قارني يومين مختلفين، ثم اختبري قدرتك على تحقيق الإنجاز مع المحافظة على الطاقة. جميع المؤشرات تعليمية افتراضية.</p></aside></section><div class="footer">المشروع يعمل في المتصفح باستخدام Three.js. يحتاج الإنترنت عند الفتح لتحميل مكتبة الرسوم ثلاثية الأبعاد.</div></main><script type="module">
+let THREE;
+const moduleLoad = import('https://esm.sh/three@0.170.0');
+const $=id=>document.getElementById(id);const clamp=x=>Math.max(0,Math.min(100,x));let state,step,avatar,armL,armR,legL,legR,head,body,scene,renderer,camera,clockHands=[],action='idle',animStart=0,skirt,blouse,schoolBadge,backpack,characterHair,windowGlow,roomObjects=[],schoolObjects=[],schoolMode=false,schoolGate=false,transitioning=false,travelStage=0,travelStart=0,travelDuration=0,travelObjects=[],setTravelScene=()=>{},setSchoolScene=()=>{},mouth,cheekL,cheekR,eyeL,eyeR;
+const questions=[{text:'استيقظتِ في السادسة صباحًا. أمامك بعض الوقت قبل المدرسة. كيف ستبدئين يومك؟',options:[{t:'📚 مراجعة مركزة لمدة 20 دقيقة',min:20,e:-12,p:22,r:-4,a:'study',msg:'بدأتِ بإنجاز مهم، لكن المراجعة استهلكت بعض الطاقة.'},{t:'🧘 تمارين خفيفة واستعداد بهدوء',min:20,e:12,p:7,r:16,a:'stretch',msg:'استعددتِ بنشاط وهدوء، مع إنجاز دراسي أقل في البداية.'},{t:'📱 تصفح الهاتف لمدة 30 دقيقة',min:30,e:-5,p:0,r:-9,a:'phone',msg:'مر الوقت سريعًا دون تقدم في أولويات الصباح.'}]},{text:'حان وقت تجهيز الحقيبة. اكتشفتِ أن واجبًا صغيرًا لم يكتمل. ماذا تفعلين؟',options:[{t:'✏️ أخصص 15 دقيقة لإنهائه',min:15,e:-9,p:20,r:-3,a:'study',msg:'أنهيتِ الواجب، لكن وقت الصباح أصبح أضيق.'},{t:'🗓️ أحدد وقتًا واضحًا لإنجازه لاحقًا',min:5,e:0,p:7,r:4,a:'plan',msg:'وضعتِ خطة واقعية؛ تذكري الالتزام بها لاحقًا.'},{t:'🙈 أتجاهله تمامًا',min:2,e:1,p:-12,r:-12,a:'idle',msg:'وفرتِ دقائق، لكن المهمة المعلقة قد تزيد الضغط لاحقًا.'}]},{text:'تبقّى وقت قصير قبل الخروج. ما أولويتك الآن؟',options:[{t:'🥪 أتناول فطوري وأستعد',min:15,e:16,p:6,r:12,a:'eat',msg:'اهتممتِ باحتياجاتك الأساسية قبل بدء اليوم.'},{t:'📖 أواصل الدراسة دون استراحة',min:15,e:-18,p:15,r:-13,a:'study',msg:'حققتِ تقدمًا دراسيًا إضافيًا، مقابل تعب أكبر.'},{t:'🧳 أراجع قائمة الأغراض وأنطلق مبكرًا',min:10,e:-2,p:10,r:8,a:'plan',msg:'قللتِ احتمالات النسيان والتأخر.'}]},{text:'وصلتِ إلى المدرسة، وهناك عشر دقائق قبل الطابور. ما القرار الأفضل؟',options:[{t:'🗂️ أراجع خطة الحصص وأجهز أدواتي',min:8,e:-2,p:13,r:5,a:'plan',msg:'بدأتِ اليوم الدراسي بوضوح واستعداد.'},{t:'🤝 أطمئن على زميلتي وأستعد معها',min:8,e:2,p:7,r:12,a:'stretch',msg:'دعمتِ زميلتكِ وحافظتِ على استعداد جيد.'},{t:'💬 أنشغل بالحديث الجانبي مع زميلتي وأفقد التركيز',min:12,e:-5,p:-8,r:-9,a:'chat',msg:'أضاع الحديث الجانبي جزءًا من وقت الاستعداد للحصة، فتأثر تركيزكِ.'}]},{text:'داخل الفصل، أعلنت المعلمة عن نشاط جماعي يحتاج إلى تنظيم. كيف تتصرفين؟',options:[{t:'🧩 أقسم المهمة إلى خطوات وأوزع الأدوار',min:20,e:-9,p:23,r:3,a:'plan',msg:'التخطيط ساعد المجموعة على الإنجاز دون فوضى.'},{t:'🙋 أعمل وحدي لإنهاء كل شيء بسرعة',min:20,e:-18,p:14,r:-12,a:'study',msg:'أنجزتِ جزءًا مهمًا، لكنك تحملتِ عبئًا كبيرًا.'},{t:'⏳ أنتظر حتى تبدأ الأخريات',min:20,e:-3,p:-6,r:-5,a:'idle',msg:'تأخر البدء فقلّ الوقت المتاح للعمل.'}]},{text:'اقتربت الحصة الأخيرة، وتشعرين بالتعب. كيف تتعاملين مع ما تبقى؟',options:[{t:'💧 أشرب الماء وأرتب ما تبقى من المهام',min:10,e:11,p:8,r:11,a:'eat',msg:'اعتنيتِ بطاقتكِ وحافظتِ على تركيزكِ.'},{t:'📚 أواصل العمل دون توقف',min:10,e:-18,p:15,r:-12,a:'study',msg:'زاد الإنجاز، لكن الطاقة والراحة انخفضتا.'},{t:'🌿 أستريح قليلًا ثم أعود للمهمة',min:12,e:12,p:7,r:15,a:'stretch',msg:'الاستراحة القصيرة ساعدتكِ على إكمال اليوم.'}]}];
+// تتبع اختيارات اليوم: تُستخدم لإظهار عواقب حقيقية في المشاهد اللاحقة.
+let decisions=[],flags={};
+function decisionImpact(){
+ const bits=[];
+ if(step>=3){
+   if(flags.breakfast)bits.push('🥪 الإفطار منحك استعدادًا أفضل للحصة.');
+   else bits.push('🍽️ لم تتناولي الإفطار؛ قد تحتاجين إلى استراحة لاستعادة التركيز.');
+   if(flags.phone)bits.push('📱 الوقت الذي ذهب للهاتف سيظهر أثره عند الاستعداد للحصة.');
+   if(flags.homeworkDone)bits.push('📘 واجبك مكتمل، وهذا يخفف الضغط داخل الفصل.');
+   else if(flags.homeworkPlan)bits.push('🗓️ الواجب مؤجل: ستحتاجين إلى تخصيص وقت محدد له.');
+   else bits.push('📘 بقي واجب غير مكتمل وقد يتطلب معالجة لاحقًا.');
+ }
+ const el=$('impact');el.hidden=!bits.length;el.innerHTML=bits.length?'<strong>🔍 أثر قراراتك السابقة</strong><br>'+bits.join('<br>'):'';
+}
+function applyConsequences(){
+ // يتم تطبيق الآثار مرة واحدة عند الوصول إلى المدرسة.
+ if(flags.consequencesApplied)return;
+ flags.consequencesApplied=true;
+ let messages=[];
+ if(!flags.breakfast){state.e=clamp(state.e-9);messages.push('نقصت الطاقة 9 نقاط لأن الصباح مرّ دون إفطار.');}
+ if(flags.phone){state.min+=7;state.r=clamp(state.r-6);messages.push('تأخرتِ 7 دقائق إضافية بسبب تشتت الصباح.');}
+ if(flags.homeworkDone){state.p=clamp(state.p+6);messages.push('اكتمال الواجب رفع جاهزيتك 6 نقاط.');}
+ else if(!flags.homeworkPlan){state.p=clamp(state.p-7);messages.push('الواجب المعلق أثّر في الاستعداد للحصة.');}
+ flags.schoolMessages=messages;
+}
+
+// المرحلة السابعة: مقارنة تجربتين مع تحدٍّ قابل للقياس.
+const COMPARE_KEY='microscope_phase7_first_run';
+const CHALLENGE_KEY='microscope_phase7_challenge_active';
+let firstRunFallback=null,challengeFallback=false;
+function safeText(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function saveFirstRun(data){firstRunFallback=data;try{localStorage.setItem(COMPARE_KEY,JSON.stringify(data));}catch(e){}}
+function loadFirstRun(){try{const raw=localStorage.getItem(COMPARE_KEY);return raw?JSON.parse(raw):firstRunFallback;}catch(e){return firstRunFallback;}}
+function setChallengeActive(v){challengeFallback=v;try{if(v)localStorage.setItem(CHALLENGE_KEY,'1');else localStorage.removeItem(CHALLENGE_KEY);}catch(e){}}
+function challengeIsActive(){try{return localStorage.getItem(CHALLENGE_KEY)==='1'||challengeFallback;}catch(e){return challengeFallback;}}
+function resetComparison(){
+  firstRunFallback=null;
+  try{localStorage.removeItem(COMPARE_KEY);}catch(e){}
+  setChallengeActive(false);
+  initState();
+}
+function deltaCell(n){const cls=n>0?'good':n<0?'bad':'neutral';const sign=n>0?'+':'';return '<td class="delta '+cls+'"><span dir="ltr">'+sign+n+'</span></td>';}
+function compareRows(first,second){
+  return [['الإنجاز','p'],['التوازن','b'],['الطاقة','e'],['الراحة','r']].map(([label,key])=>{
+    const a=Number(first[key])||0,b=Number(second[key])||0;
+    return '<tr><th scope="row">'+label+'</th><td>'+a+'</td><td>'+b+'</td>'+deltaCell(b-a)+'</tr>';
+  }).join('');
+}
+function challengeSection(data){
+  const passed=data.p>=70&&data.e>=60;
+  const active=challengeIsActive();
+  let title=active?(passed?'🏅 نجحتِ في التحدي!':'🔍 محاولة تستحق التأمل'):'🎯 التحدي الذكي القادم';
+  let explanation=active
+    ?(passed?'حققتِ الإنجاز المطلوب مع المحافظة على طاقتكِ. قارني قراراتك لتعرفي ما الذي ساعدك.':
+       'لم يتحقق الشرطان معًا هذه المرة. اختاري قرارًا واحدًا لتغييره، وجرّبي مجددًا دون التضحية بالراحة.')
+    :'هل تستطيعين الوصول إلى إنجاز 70 أو أكثر، مع بقاء الطاقة عند 60 أو أكثر؟ يمكنك قبول التحدي وإعادة اليوم بقرارات جديدة.';
+  const action=active
+    ?'<button class="action-button" type="button" id="retryChallenge">↻ أعيدي محاولة التحدي</button>'
+    :'<button class="action-button" type="button" id="startChallenge">🚀 اقبلي التحدي وابدئي يومًا جديدًا</button>';
+  return '<section class="challenge-card"><h3>'+title+'</h3><p>'+explanation+'</p>'+
+    '<div class="challenge-metrics"><div class="challenge-metric">🏆 الإنجاز المطلوب<b>70+</b>نتيجتك: '+data.p+
+    '</div><div class="challenge-metric">⚡ الطاقة المطلوبة<b>60+</b>نتيجتك: '+data.e+'</div></div>'+
+    (active?'<div class="challenge-status">'+(passed?'✅ تحقق الشرطان بنجاح.':'💡 راقبي أثر المراجعة والإفطار والاستراحات على المؤشرات.')+'</div>':'')+
+    action+'</section>';
+}
+function comparisonSection(data){
+  const first=loadFirstRun();
+  let comparison;
+  if(!first){
+    saveFirstRun(data);
+    $('restart').textContent='🔁 ابدئي اليوم الثاني للمقارنة';
+    comparison='<section class="report compare-card"><h3>🧪 مختبر القرارات — اليوم الأول محفوظ</h3>'+
+      '<p>أعيدي اليوم باختيارات مختلفة. عند انتهاء التجربة التالية ستظهر مقارنة الإنجاز والتوازن والطاقة والراحة.</p>'+
+      '<p>تُحفظ نتيجة اليوم الأول في هذا المتصفح فقط، دون اسم أو حساب.</p></section>';
+  }else{
+    const changes=data.decisions.filter((v,i)=>v!==first.decisions[i]).length;
+    $('restart').textContent='🔁 أعيدي التجربة مع الاحتفاظ باليوم الأول';
+    comparison='<section class="report compare-card"><h3>🧪 مقارنة اليومين</h3>'+
+      '<div class="compare-scroll"><table class="compare-table"><thead><tr><th>المؤشر</th><th>الأول</th><th>الثاني</th><th>الفرق</th></tr></thead>'+
+      '<tbody>'+compareRows(first,data)+'</tbody></table></div>'+
+      '<p>🔎 غيّرتِ '+changes+' من أصل ستة قرارات. '+(changes?'ما القرار الذي أحدث الفرق الأكبر؟':'غيّري قرارًا واحدًا على الأقل لاختبار أثره.')+'</p>'+
+      '<p>💡 هل ارتفع الإنجاز مع المحافظة على الطاقة والراحة؟</p>'+
+      '<button type="button" id="clearComparison" class="action-button">🗑️ بدء مقارنة جديدة من الصفر</button></section>';
+  }
+  return comparison+challengeSection(data);
+}
+function bindReportButtons(){
+  const clear=$('clearComparison');if(clear)clear.addEventListener('click',resetComparison);
+  const start=$('startChallenge');if(start)start.addEventListener('click',()=>{setChallengeActive(true);initState();});
+  const retry=$('retryChallenge');if(retry)retry.addEventListener('click',()=>{setChallengeActive(true);initState();});
+}
+
+function finalReport(){
+ const b=clamp(Math.round((state.e+state.r+state.p)/3));
+ const strong=state.p>=65?'إنجاز دراسي جيد':'فرصة لزيادة الإنجاز بخطوات قصيرة';
+ const wellbeing=state.e<45?'الطاقة منخفضة: جرّبي إدراج إفطار أو استراحة.':'حافظتِ على قدر مناسب من الطاقة.';
+ const plan=flags.homeworkDone?'أنهيتِ واجبك قبل المدرسة.':flags.homeworkPlan?'خططتِ لتأجيل الواجب؛ حددي وقتًا لتنفيذه.':'الواجب المعلّق يستحق وقتًا محددًا.';
+ const phone=flags.phone?'راجعي أثر وقت الهاتف على الاستعداد الصباحي.':'حافظتِ على وقت الصباح بعيدًا عن التشتت الرقمي.';
+ const rows=decisions.map((d,i)=>'<p>📍 '+(i+1)+'. '+d.t.replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[x]))+'</p>').join('');
+ $('report').innerHTML='<section class="report"><h3>📋 تقرير يومك الشخصي</h3><p><b>التوازن:</b> '+b+'/100 — <b>الإنجاز:</b> '+state.p+'/100</p><p>✨ '+strong+'. '+wellbeing+'</p><p>🎯 '+plan+' '+phone+'</p><h3>قراراتك الستة</h3>'+rows+'<p><b>تجربة تعليمية:</b> أعيدي اللعب وغيري قرارًا واحدًا، ثم قارني النتيجة. هذه مؤشرات افتراضية وليست حكمًا على الطالبة.</p></section>';
+ const current={p:state.p,e:state.e,r:state.r,b,decisions:decisions.map(d=>d.t)};
+ $('report').insertAdjacentHTML('beforeend',comparisonSection(current));
+ bindReportButtons();
+}
+function initState(){decisions=[];flags={};$('impact').hidden=true;$('report').innerHTML='';$('restart').textContent='↻ إعادة التجربة';state={min:360,e:75,p:15,r:65};step=0;action='idle';transitioning=false;travelStage=0;for(const o of travelObjects)o.visible=false;$('outcome').innerHTML='';if(blouse){dressForScene(false);setSchoolScene(false)}update();renderQuestion()}
+function update(){decisionImpact();const hh=String(Math.floor(state.min/60)%24).padStart(2,'0'),mm=String(state.min%60).padStart(2,'0');$('clock').textContent=hh+':'+mm;let b=clamp(Math.round((state.e+state.r+state.p)/3));for(let [key,val] of [['energy',state.e],['progress',state.p],['rest',state.r],['balance',b]]){$(key).textContent=val;$(key+'Bar').style.width=val+'%'}}
+function renderQuestion(){if(step>=questions.length){finalReport();$('story').innerHTML='<b>✨ انتهى اليوم الدراسي التجريبي!</b><br>لا يوجد قرار مثالي في كل موقف؛ التوازن يعني فهم المفاضلات بين الإنجاز والراحة والوقت.';$('choices').innerHTML='';$('outcome').innerHTML='<div class="outcome">حصيلة التجربة: إنجاز '+state.p+'/100، طاقة '+state.e+'/100، راحة '+state.r+'/100.<br>هذه نتائج محاكاة وليست تقييمًا لشخصيتك.</div>';return}let q=questions[step];$('story').textContent=q.text;$('choices').replaceChildren();q.options.forEach((opt,i)=>{let b=document.createElement('button');b.className='choice';b.textContent=opt.t;b.addEventListener('click',()=>choose(opt));$('choices').append(b)})}
+function choose(opt){if(transitioning)return;const previousStep=step;decisions.push({t:opt.t});if(previousStep===0)flags.phone=opt.a==='phone';if(previousStep===1){flags.homeworkDone=opt.a==='study';flags.homeworkPlan=opt.a==='plan'}if(previousStep===2)flags.breakfast=opt.a==='eat';state.min+=opt.min;state.e=clamp(state.e+opt.e);state.p=clamp(state.p+opt.p);state.r=clamp(state.r+opt.r);action=opt.a;animStart=performance.now();step++;if(step>=2 && blouse){dressForScene(true)}if(step>=3 && !schoolMode){state.min=Math.max(state.min,420);beginTravel()}update();$('outcome').innerHTML='<div class="outcome">'+opt.msg+'<br>⏱️ مرّت '+opt.min+' دقيقة.</div>';$('choices').innerHTML='';$('story').textContent='شاهدي تأثير القرار على الشخصية والمؤشرات...';if(!transitioning)setTimeout(()=>{if(step<=questions.length)renderQuestion()},1800)}$('restart').addEventListener('click',initState);
+function beginTravel(){
+ transitioning=true;travelStage=1;travelStart=performance.now();travelDuration=3500;
+ $('story').textContent='🚶‍♀️ في الطريق إلى المدرسة... شاهدي الشخصية تتحرك تلقائيًا';
+ $('choices').replaceChildren();$('outcome').innerHTML='<div class="outcome">🎬 رحلة صباحية قصيرة إلى المدرسة</div>';
+ if(blouse){dressForScene(true);setTravelScene(1)}
+}
+function advanceTravel(t){
+ if(!transitioning)return;
+ const progress=Math.min(1,(t-travelStart)/travelDuration);
+ if(avatar){avatar.position.x=-2.8+5.6*progress;avatar.position.z=.6;avatar.rotation.y=-.16;}
+ if(progress<1)return;
+ if(travelStage===1){travelStage=2;travelStart=t;travelDuration=2700;setTravelScene(2);$('story').textContent='🏫 وصلتِ إلى المدرسة... تتجه الطالبة نحو الفصل';}
+ else {transitioning=false;travelStage=0;state.min=Math.max(state.min,420);applyConsequences();setSchoolScene(true);avatar.rotation.y=0;avatar.position.x=.2;avatar.position.z=1.05;update();renderQuestion();$('outcome').innerHTML='<div class="outcome">✨ وصلتِ إلى الفصل! '+(flags.schoolMessages||[]).join(' ')+' تابعي اتخاذ القرارات.</div>';}
+}
+function makeBox(w,h,d,color,x,y,z,parent=scene){let m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),new THREE.MeshStandardMaterial({color,roughness:.75}));m.position.set(x,y,z);m.castShadow=true;m.receiveShadow=true;parent.add(m);return m}
+function makeSphere(r,color,x,y,z,parent=scene){let m=new THREE.Mesh(new THREE.SphereGeometry(r,18,12),new THREE.MeshStandardMaterial({color,roughness:.82}));m.position.set(x,y,z);m.castShadow=true;parent.add(m);return m}
+
+function dressForScene(school){
+ if(!blouse)return;
+ const top=school?'#f9f5f2':'#b59bdc',bottom=school?'#313b67':'#a58acb';
+ blouse.material.color.set(top);skirt.material.color.set(bottom);
+ for(const arm of [armL,armR]){if(arm.children[0])arm.children[0].material.color.set(top)}
+ schoolBadge.visible=school;backpack.visible=school;
+ $('sceneLabel').textContent=school?'🎒 الاستعداد للمدرسة — زي طويل ومحتشم':'🌤️ غرفة النوم — ملابس منزلية محتشمة';
+}
+function build3D(){scene=new THREE.Scene();scene.background=new THREE.Color('#c7c8ed');camera=new THREE.PerspectiveCamera(40,1,.1,100);camera.position.set(6.8,5.2,8.5);camera.lookAt(0,1.3,0);renderer=new THREE.WebGLRenderer({antialias:true,alpha:false});renderer.setPixelRatio(Math.min(devicePixelRatio,1.7));renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;$('stage').appendChild(renderer.domElement);let hemi=new THREE.HemisphereLight(0xffffff,0x8884ad,2.2);scene.add(hemi);let sun=new THREE.DirectionalLight(0xffedca,3.1);sun.position.set(-3,8,5);sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);scene.add(sun);
+makeBox(9,.2,7,'#d7bcae',0,-.12,0);makeBox(9,4,.18,'#f6dfed',0,1.9,-3.4);makeBox(.18,4,7,'#eee2f5',-4.5,1.9,0);makeBox(3.2,.55,1.9,'#b49ec9',-2.4,.48,-1.65);makeBox(3.0,.18,1.8,'#f5f0fc',-2.4,.81,-1.65);makeBox(1.0,.23,.55,'#e9b6d0',-3.2,.98,-2.1);makeBox(2,.13,1,'#8b6c9e',2.35,1.15,-2.35);makeBox(.13,1.15,.13,'#8b6c9e',1.55,.55,-2.35);makeBox(.13,1.15,.13,'#8b6c9e',3.1,.55,-2.35);makeBox(.75,.8,.1,'#c5d9f6',2.3,1.64,-2.55);makeBox(.8,.09,.5,'#e7a4b8',2.3,1.27,-2.1);makeBox(1.4,1.65,.12,'#a2b8e8',-1.1,2.45,-3.26);makeBox(1.23,1.48,.08,'#f9e3ab',-1.1,2.45,-3.16);makeBox(.07,1.48,.1,'#fff9ef',-1.1,2.45,-3.08);makeBox(1.23,.07,.1,'#fff9ef',-1.1,2.45,-3.08);
+let clockFace=new THREE.Mesh(new THREE.CylinderGeometry(.45,.45,.09,40),new THREE.MeshStandardMaterial({color:'#fff9e8'}));clockFace.rotation.x=Math.PI/2;clockFace.position.set(1,2.9,-3.19);scene.add(clockFace);let hand1=makeBox(.035,.34,.03,'#38415e',1,2.99,-3.1),hand2=makeBox(.025,.45,.025,'#ec8299',1,3.02,-3.07);clockHands=[hand1,hand2];
+avatar=new THREE.Group();avatar.position.set(.2,0,.6);scene.add(avatar);
+// Smooth, expressive cartoon girl built from rounded 3D shapes rather than voxel cubes.
+function smoothMat(color){return new THREE.MeshStandardMaterial({color,roughness:.78,metalness:0})}
+function oval(rx,ry,rz,color,x,y,z,parent=avatar){let mesh=new THREE.Mesh(new THREE.SphereGeometry(1,32,24),smoothMat(color));mesh.scale.set(rx,ry,rz);mesh.position.set(x,y,z);mesh.castShadow=true;parent.add(mesh);return mesh}
+function capsuleBetween(x,y,z,r,h,color,parent){let mesh=new THREE.Mesh(new THREE.CapsuleGeometry(r,h,8,16),smoothMat(color));mesh.position.set(x,y,z);mesh.castShadow=true;parent.add(mesh);return mesh}
+blouse=new THREE.Mesh(new THREE.CylinderGeometry(.32,.44,.85,32,1),smoothMat('#b59bdc'));blouse.position.set(0,1.57,0);blouse.castShadow=true;avatar.add(blouse);body=blouse;
+skirt=new THREE.Mesh(new THREE.CylinderGeometry(.41,.70,1.25,48,1),new THREE.MeshStandardMaterial({color:'#a58acb',roughness:.87,side:THREE.DoubleSide}));skirt.position.set(0,.67,0);skirt.castShadow=true;avatar.add(skirt);
+// Soft face, nose, cheeks and large expressive eyes.
+head=oval(.40,.45,.35,'#f2c4aa',0,2.37,.04);
+eyeL=oval(.075,.09,.025,'#302b44',-.155,2.40,.373);eyeR=oval(.075,.09,.025,'#302b44',.155,2.40,.373);
+oval(.025,.032,.013,'#ffffff',-.177,2.437,.396);oval(.025,.032,.013,'#ffffff',.133,2.437,.396);
+cheekL=oval(.082,.04,.025,'#eaa4a4',-.27,2.25,.285);cheekR=oval(.082,.04,.025,'#eaa4a4',.27,2.25,.285);
+oval(.043,.055,.035,'#e8ac92',0,2.30,.386);
+mouth=oval(.085,.023,.012,'#ad6174',0,2.16,.375);
+// Layered, smooth hairstyle with soft side locks.
+characterHair=new THREE.Group();avatar.add(characterHair);
+oval(.414,.29,.365,'#403147',0,2.69,-.035,characterHair);
+oval(.18,.34,.19,'#403147',-.35,2.49,-.045,characterHair);
+oval(.18,.34,.19,'#403147',.35,2.49,-.045,characterHair);
+oval(.20,.13,.21,'#403147',-.20,2.65,.245,characterHair);
+oval(.20,.13,.21,'#403147',.19,2.65,.245,characterHair);
+// Decorative school crest and rounded backpack.
+schoolBadge=oval(.07,.085,.018,'#ffdf9d',.24,1.72,.337);schoolBadge.visible=false;
+backpack=oval(.36,.46,.18,'#546a9e',0,1.49,-.40);backpack.visible=false;
+armL=new THREE.Group();armR=new THREE.Group();legL=new THREE.Group();legR=new THREE.Group();
+armL.position.set(-.42,1.79,0);armR.position.set(.42,1.79,0);legL.position.set(-.18,.66,0);legR.position.set(.18,.66,0);avatar.add(armL,armR,legL,legR);
+// Sleeves are child 0 to preserve the existing costume-changing logic.
+capsuleBetween(0,-.32,0,.14,.43,'#b59bdc',armL);capsuleBetween(0,-.32,0,.14,.43,'#b59bdc',armR);
+oval(.13,.15,.13,'#f2c4aa',0,-.76,.02,armL);oval(.13,.15,.13,'#f2c4aa',0,-.76,.02,armR);
+capsuleBetween(0,-.24,0,.10,.25,'#50475c',legL);capsuleBetween(0,-.24,0,.10,.25,'#50475c',legR);
+oval(.18,.10,.27,'#f5e6f3',0,-.49,.11,legL);oval(.18,.10,.27,'#f5e6f3',0,-.49,.11,legR);
+dressForScene(false);
+// Room details: rug, books, a plant, a bedside lamp and a soft window glow.
+makeBox(2.25,.025,1.32,'#c6a9ce',1.0,.015,1.75);
+makeBox(.47,.07,.32,'#ffdb9b',2.50,1.35,-2.15);makeBox(.42,.06,.30,'#98b4e5',2.56,1.43,-2.14);
+makeBox(.12,.45,.12,'#8b6c9e',-3.65,1.12,-2.20);makeSphere(.27,'#fff1bc',-3.65,1.48,-2.20);
+makeBox(.42,.30,.42,'#e6b5ad',3.52,.28,-2.45);makeSphere(.32,'#74b79a',3.52,.66,-2.45);
+
+// Build a lightweight classroom in the same WebGL world. Original room is preserved for replay.
+roomObjects=scene.children.filter(o=>o!==avatar && o!==hemi && o!==sun);
+function schoolBox(w,h,d,color,x,y,z){let o=makeBox(w,h,d,color,x,y,z);schoolObjects.push(o);return o}
+schoolBox(9,.2,7,'#d4d7e7',0,-.12,0);
+schoolBox(9,4,.18,'#e4edfa',0,1.9,-3.4);
+schoolBox(.18,4,7,'#f4e6ed',-4.5,1.9,0);
+schoolBox(3.1,1.55,.13,'#3c827b',0.2,2.12,-3.22);
+schoolBox(3.35,.12,.22,'#c9a37b',.2,1.30,-3.08);
+schoolBox(1.4,1.45,.10,'#d7e9ff',-2.8,2.36,-3.19);
+for(let i=0;i<3;i++){let x=-2.45+i*2.5;schoolBox(1.35,.14,.72,'#c49d7b',x,.86,.1);schoolBox(.12,.78,.12,'#8e7695',x-.53,.40,.1);schoolBox(.12,.78,.12,'#8e7695',x+.53,.40,.1);schoolBox(.95,.12,.6,'#a4b5d8',x,.47,1.0);schoolBox(.13,.95,.13,'#8491b4',x,.9,1.3);schoolBox(.16,.32,.25,'#f5d08b',x,.99,.1)}
+schoolBox(.85,1.85,.14,'#d9b9a3',3.55,1.03,-3.17);
+schoolBox(.55,.13,.40,'#e6a9c8',-2.45,1.02,.1);
+// Two lightweight cinematic travel environments, built from native 3D geometry.
+function travelBox(w,h,d,color,x,y,z){const o=makeBox(w,h,d,color,x,y,z);travelObjects.push(o);return o}
+// School courtyard: paving, facade, gate, trees and walkway.
+const yard=[];function yardBox(...args){let o=travelBox(...args);yard.push(o);return o}
+yardBox(9,.2,7,'#dfd5c6',0,-.12,0);yardBox(9,3.6,.3,'#e6c9ad',0,1.75,-3.35);
+yardBox(2.4,2.9,.15,'#b7d5e7',0,1.4,-3.14);yardBox(2.6,.22,.35,'#867ca9',0,2.95,-3.05);
+for(const x of [-3.4,3.4]){yardBox(.32,1.8,.32,'#94795d',x,.83,-1.9);let tree=makeSphere(.8,'#7cb59b',x,2.0,-1.9);travelObjects.push(tree);yard.push(tree)}
+yardBox(2.2,.06,5.8,'#f4e9d7',0,.02,.25);
+// School hallway: walls, floor, classroom doors and signs.
+const hall=[];function hallBox(...args){let o=travelBox(...args);hall.push(o);return o}
+hallBox(9,.2,7,'#d6dbe8',0,-.12,0);hallBox(9,3.7,.18,'#f2e7df',0,1.8,-3.4);
+for(const x of [-2.9,0,2.9]){hallBox(1.3,2.35,.13,'#b3a1c5',x,1.12,-3.23);hallBox(.25,.25,.07,'#f5dc93',x+.4,1.3,-3.13);hallBox(1.35,.24,.16,'#fff9e8',x,2.52,-3.14)}
+for(const o of travelObjects)o.visible=false;
+setTravelScene=function(which){schoolMode=false;for(const o of roomObjects)o.visible=false;for(const o of schoolObjects)o.visible=false;for(const o of yard)o.visible=which===1;for(const o of hall)o.visible=which===2;if(avatar){avatar.position.set(-2.8,0,.6);avatar.rotation.y=-.16} $('sceneLabel').textContent=which===1?'🌳 ساحة المدرسة — رحلة صباحية':'🚪 الممر المدرسي — إلى الفصل'};
+for(const o of schoolObjects)o.visible=false;
+setSchoolScene=function(yes){schoolMode=yes;for(const o of roomObjects)o.visible=!yes;for(const o of schoolObjects)o.visible=yes;for(const o of travelObjects)o.visible=false;if(avatar){avatar.position.x=yes?.2:.2;avatar.position.z=yes?1.05:.6;dressForScene(yes)}$('sceneLabel').textContent=yes?'🏫 الفصل الدراسي — قرارات المدرسة':'🌤️ غرفة النوم — بداية اليوم'}
+let resize=()=>{let w=$('stage').clientWidth,h=window.innerWidth<=850?390:480;renderer.setSize(w,h);camera.aspect=w/h;camera.updateProjectionMatrix()};window.addEventListener('resize',resize);resize();$('loading').style.display='none';let start=performance.now();function frame(t){requestAnimationFrame(frame);advanceTravel(t);let k=t*.001,active=(t-animStart)<1700&&!transitioning;avatar.position.y=Math.sin(k*2)*.025;armL.rotation.x=0;armR.rotation.x=0;legL.rotation.x=0;legR.rotation.x=0;head.rotation.z=Math.sin(k*1.4)*.025;head.rotation.x=0;body.rotation.z=0;if(mouth){const tired=state.e<40;mouth.scale.y=tired?.013:.030;mouth.position.y=tired?2.13:2.16;eyeL.scale.y=eyeR.scale.y=tired?.065:.09;cheekL.material.opacity=cheekR.material.opacity=1;}if(transitioning){let stride=Math.sin(t*.010);armL.rotation.x=stride*.42;armR.rotation.x=-stride*.42;legL.rotation.x=-stride*.32;legR.rotation.x=stride*.32;avatar.position.y+=Math.abs(stride)*.045;}if(active){if(action==='study'){armL.rotation.x=-1.2;armR.rotation.x=-1.15;head.rotation.x=.18}else if(action==='stretch'){armL.rotation.z=-2.4;armR.rotation.z=2.4;avatar.position.y+=.12}else if(action==='phone'){armR.rotation.x=-1.35;head.rotation.x=.2}else if(action==='chat'){head.rotation.z=.15;armR.rotation.x=-.5}else if(action==='plan'){armR.rotation.x=-.9;head.rotation.z=.13}else if(action==='eat'){armR.rotation.x=-1.8}else{head.rotation.z=.13}}else{action='idle'}let hr=state.min/60;clockHands[0].rotation.z=-(hr%12)/12*Math.PI*2;clockHands[1].rotation.z=-(state.min%60)/60*Math.PI*2;renderer.render(scene,camera)}requestAnimationFrame(frame)}
+initState();
+const loadTimeout=new Promise((_,reject)=>setTimeout(()=>reject(new Error('انتهت مهلة تحميل مكتبة الرسوم. افتحي اللعبة في Safari عبر رابط موقع منشور، وليس عارض الملفات داخل التطبيق.')),12000));
+Promise.race([moduleLoad,loadTimeout]).then(mod=>{THREE=mod;try{build3D()}catch(e){showLoadError(e)}}).catch(showLoadError);
+function showLoadError(e){const el=$('loading');el.replaceChildren();const wrap=document.createElement('div');const title=document.createElement('strong');title.textContent='تعذّر تحميل المشهد ثلاثي الأبعاد';const msg=document.createElement('p');msg.textContent=e?.message||'تعذر تحميل مكتبة الرسوم';const tip=document.createElement('p');tip.textContent='السبب غالبًا فتح الملف داخل معاينة التطبيق. انشري ملف index.html على موقع HTTPS ثم افتحي الرابط في Safari. ويمكنك متابعة تجربة القرارات والمؤشرات أسفل المشهد.';wrap.append(title,msg,tip);el.append(wrap)}
+</script></body></html>
